@@ -9,14 +9,22 @@ import pickle
 import numpy as np
 import re
 
-# download the dataset
 input_file_path = os.path.join(os.path.dirname(__file__), 'input.txt')
+
+param1 = [i for i in range(1000)]
+param2 = [i for i in range(1000)]
+
+with open(input_file_path, 'w') as f:
+    for i in range(1000):
+        for j in range(1000):
+            f.write(f"{i}+{j}={i+j}\n")
+
+# download the dataset
 with open(input_file_path, 'r') as f:
     data = f.read()
 print(f"length of dataset in characters: {len(data):,}")
 
-regexp = r"(\w+|\s+|\W)";
-tokens = re.findall(regexp, data)
+tokens = data
 
 # get all the unique characters that occur in this text
 vocab = sorted(list(set(tokens)))

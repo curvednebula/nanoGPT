@@ -1,8 +1,8 @@
 # My Flow
 
-python3 train.py config/train_my.py
+python3 train.py data/<dataset>/train_config.py
 
-python3 sample.py --out_dir=out-my --device=mps
+python3 sample.py --out_dir=<out-dataset> --device=mps
 
 # nanoGPT
 
