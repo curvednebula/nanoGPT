@@ -5,7 +5,7 @@ import os
 from contextlib import nullcontext
 import torch
 import tiktoken
-from meta_tokenizer import MetaTokenizer
+from tokenizer import Tokenizer
 from model import GPTConfig, GPT
 
 # -----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ if init_from == 'resume' and 'config' in checkpoint and 'dataset' in checkpoint[
     load_meta = os.path.exists(meta_path)
 
 if load_meta:
-    tok = MetaTokenizer(meta_path)
+    tok = Tokenizer(meta_path)
     encode = lambda s: tok.encode(s)
     decode = lambda l: tok.decode(l)
 else:
