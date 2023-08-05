@@ -124,6 +124,7 @@ if os.path.exists(meta_path):
 
 
 training_set = TrainingSet(data_dir, device, device_type, block_size, batch_size)
+training_set.split_into_qna_sets(tokenizer.encode('\n')[0])
 
 # init these up here, can override if init_from='resume' (i.e. from a checkpoint)
 iter_num = 0
