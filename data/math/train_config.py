@@ -16,7 +16,7 @@ wandb_run_name = 'mini-gpt'
 dataset = 'math'
 gradient_accumulation_steps = 1
 batch_size = 64
-block_size = 100 # context of up to 256 previous characters
+block_size = 24 # attention window
 
 # baby GPT model :)
 n_layer = 6
