@@ -24,7 +24,7 @@ n_head = 12
 n_embd = 384
 dropout = 0.2
 
-learning_rate = 1e-4 # should be beween 1e-3 and 1e-4
+learning_rate = 1e-3 # good values are beween 1e-3 and 1e-4
 max_iters = 10000
 lr_decay_iters = max_iters # make equal to max_iters usually
 min_lr = learning_rate / 10
