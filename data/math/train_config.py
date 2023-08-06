@@ -19,8 +19,8 @@ batch_size = 64
 block_size = 20 # attention window
 
 # baby GPT model :)
-n_layer = 12
-n_head = 12
+n_layer = 8
+n_head = 8
 n_embd = 384
 dropout = 0.2
 
