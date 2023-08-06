@@ -120,6 +120,7 @@ meta_vocab_size = None
 tokenizer = None
 if os.path.exists(meta_path):
     tokenizer = Tokenizer(meta_path)
+    tokenizer.ignore_on_decode('\n')
     meta_vocab_size = tokenizer.vocab_size
 
 
