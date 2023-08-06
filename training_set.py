@@ -32,11 +32,9 @@ class TrainingSet:
 
         for i in delimiter_indices:
             subarray = data[start_index:i]
-            subarrays.append(subarray)
+            if (subarray.size > 0):
+                subarrays.append(subarray)
             start_index = i + 1
-
-        # Add the last subarray after the last delimiter
-        subarrays.append(data[start_index:])
 
         # Convert the list of subarrays back to a numpy array if needed
         # subarrays = [np.array(subarray) for subarray in subarrays]

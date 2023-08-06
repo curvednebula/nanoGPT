@@ -62,6 +62,7 @@ if init_from == 'resume' and 'config' in checkpoint and 'dataset' in checkpoint[
 
 if load_meta:
     tok = Tokenizer(meta_path)
+    tok.ignore_on_decode('\n')
     encode = lambda s: tok.encode(s)
     decode = lambda l: tok.decode(l)
 else:

@@ -18,14 +18,24 @@ class Tokenizer:
             self.vocab_size = len(vocab)
             self.stoi = { s:i for i,s in enumerate(vocab) }
             self.itos = { i:s for i,s in enumerate(vocab) }
+        
+        self.decode_ignored: list[str] = []
 
         print(f"Vocab size: {self.vocab_size}")
+    
+    def ignore_on_decode(self, ignored: str):
+        self.decode_ignored.append(ignored)
 
     def encode(self, s: str) -> list[int]:
         return [self.stoi[c] for c in s]
     
     def decode(self, l) -> str:
-        return ''.join([self.itos[i] for i in l])
+        decoded_str = ''
+        for i in l:
+            token = self.itos[i]
+            if token not in self.decode_ignored:
+                decoded_str = decoded_str + token
+        return decoded_str
     
     def to_file(self, file_path: str):
         # save vocab to file

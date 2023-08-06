@@ -126,6 +126,10 @@ if os.path.exists(meta_path):
 training_set = TrainingSet(data_dir, device, device_type, block_size, batch_size)
 training_set.split_into_qna_sets(tokenizer.encode('\n')[0])
 
+x, y = training_set.get_batch('train')
+print(f'Example from training_set x: {tokenizer.decode(x[0].tolist())}')
+print(f'Example from training_set y: {tokenizer.decode(y[0].tolist())}')
+
 # init these up here, can override if init_from='resume' (i.e. from a checkpoint)
 iter_num = 0
 best_val_loss = 1e9

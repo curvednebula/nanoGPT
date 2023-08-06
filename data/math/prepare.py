@@ -15,26 +15,30 @@ parent_dir = Path(__file__).resolve().parent.parent.parent
 sys.path.append(os.path.join(parent_dir, 'tokenizer'))
 from tokenizer import Tokenizer
 
-input_file_path = os.path.join(os.path.dirname(__file__), 'input.txt')
+train_file_path = os.path.join(os.path.dirname(__file__), 'train.txt')
+with open(train_file_path, 'w') as f:
+    for i in range(0, 10000, 7):
+        for j in range(0, 10000, 9):
+            f.write(f"{i}+{j}={i+j}\n")
 
-with open(input_file_path, 'w') as f:
-    for i in range(1000):
-        for j in range(1000):
+val_file_path = os.path.join(os.path.dirname(__file__), 'val.txt')
+with open(val_file_path, 'w') as f:
+    for i in range(4000, 6000, 5):
+        for j in range(4000, 6000, 7):
             f.write(f"{i}+{j}={i+j}\n")
 
 # download the dataset
-with open(input_file_path, 'r') as f:
-    data = f.read()
+with open(train_file_path, 'r') as f:
+    train_data = f.read()
 
-print(f"Length of dataset in characters: {len(data):,}")
+with open(val_file_path, 'r') as f:
+    val_data = f.read()
 
-tokenizer = Tokenizer(from_data=data)
+print(f"Length of train dataset: {len(train_data)}")
+print(f"Length of train dataset: {len(val_data)}")
+
+tokenizer = Tokenizer(from_data=train_data)
 tokenizer.to_file(os.path.join(os.path.dirname(__file__), 'meta.pkl'))
-
-# create the train and validation splits - make sure that validation split starts after new-line
-val_data_index = data.find('\n', int(len(data)*0.9)) + 1
-train_data = data[:val_data_index]
-val_data = data[val_data_index:]
 
 # encode both to integers
 train_ids = tokenizer.encode(train_data)
