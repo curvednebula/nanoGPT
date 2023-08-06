@@ -26,11 +26,11 @@ with open(train_file_path, 'w') as f:
 
 val_file_path = os.path.join(os.path.dirname(__file__), 'val.txt')
 with open(val_file_path, 'w') as f:
-    for i in range(200, 300, 1):
-        for j in range(400, 500, 3):
+    for i in range(200, 300, 2):
+        for j in range(400, 500, 2):
             f.write(f"{i}+{j}={i+j}\n")
     for i in range(4000, 6000, 5):
-        for j in range(4000, 6000, 6):
+        for j in range(4000, 6000, 5):
             f.write(f"{i}+{j}={i+j}\n")
 
 # download the dataset
