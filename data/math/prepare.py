@@ -22,18 +22,21 @@ with open(train_file_path, 'w') as f:
             f.write(f"{i}+{j}={i+j}\n")
     for i in range(10, 100, 2):
         for j in range(10, 100, 2):
-            f.write(f"{i}+{j}={i+j}\n")   
-    # for i in range(1000, 10000, 7):
-    #     for j in range(1000, 10000, 9):
+            f.write(f"{i}+{j}={i+j}\n") 
+    # for i in range(100, 1000, 10):
+    #     for j in range(100, 1000, 10):
     #         f.write(f"{i}+{j}={i+j}\n")
 
 val_file_path = os.path.join(os.path.dirname(__file__), 'val.txt')
 with open(val_file_path, 'w') as f:
+    for i in range(0, 10, 1):
+        for j in range(0, 10, 1):
+            f.write(f"{i}+{j}={i+j}\n")
     for i in range(20, 30, 1):
         for j in range(70, 80, 1):
             f.write(f"{i}+{j}={i+j}\n")
-    # for i in range(4000, 6000, 5):
-    #     for j in range(4000, 6000, 5):
+    # for i in range(200, 300, 5):
+    #     for j in range(600, 700, 5):
     #         f.write(f"{i}+{j}={i+j}\n")
 
 # download the dataset
