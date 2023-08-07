@@ -1,6 +1,4 @@
-# train a miniature character-level shakespeare model
-# good for debugging and playing on macbooks and such
-
+dataset = 'math'
 out_dir = 'out-math'
 eval_interval = 250 # keep frequent because we'll overfit
 eval_iters = 200
@@ -13,24 +11,25 @@ wandb_log = False # override via command line if you like
 wandb_project = 'math'
 wandb_run_name = 'mini-gpt'
 
-dataset = 'math'
-gradient_accumulation_steps = 1
-batch_size = 64
+# GPT model parameters
 block_size = 20 # attention window
-
-# baby GPT model :)
-n_layer = 8
-n_head = 8
-n_embd = 384
+n_layer = 6
+n_head = 6
+n_embd = n_head * 32
 dropout = 0.2
 
-learning_rate = 1e-3 # good values are beween 1e-3 and 1e-4
-max_iters = 10000
-lr_decay_iters = max_iters # make equal to max_iters usually
-min_lr = learning_rate / 10
-beta2 = 0.99 # make a bit bigger because number of tokens per iter is small
+# Learning parameters
+gradient_accumulation_steps = 1
+batch_size = 64
 
+learning_rate = 1e-3 # good values are beween 1e-3 and 1e-6
+min_lr = learning_rate / 10
+
+max_iters = 10000
 warmup_iters = 100 # not super necessary potentially
+lr_decay_iters = int(max_iters * 0.9) # make equal to max_iters usually
+
+beta2 = 0.99 # make a bit bigger because number of tokens per iter is small
 
 # on macbook also add
 device = 'mps'
