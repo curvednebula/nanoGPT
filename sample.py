@@ -11,7 +11,7 @@ from model import GPTConfig, GPT
 # -----------------------------------------------------------------------------
 init_from = 'resume' # either 'resume' (from an out_dir) or a gpt2 variant (e.g. 'gpt2-xl')
 out_dir = 'out/ckpt.pt' # ignored if init_from is not 'resume'
-start = "\n" # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
+stop_token = "\n"
 max_new_tokens = 24 # number of tokens generated in each sample
 temperature = 0.4 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
 top_k = 200 # retain only the top_k most likely tokens, clamp others to have 0 probability
@@ -74,7 +74,7 @@ else:
     decode = lambda l: enc.decode(l)
 
 while True:
-    start = input("\n-----\nPrompt: ")
+    start = input("\n---\nPrompt: ")
     if not start:
         start = "\n"
     # encode the beginning of the prompt
@@ -90,6 +90,9 @@ while True:
         with ctx:
             for _ in range(max_new_tokens):
                 next, y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
-                print(decode(next[0].tolist()), end="", flush=True)
+                next_token = decode(next[0].tolist())
+                print(next_token, end="", flush=True)
+                if next_token.endswith(stop_token):
+                    break
                 x = y
 
