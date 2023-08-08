@@ -12,7 +12,6 @@ from model import GPTConfig, GPT
 init_from = 'resume' # either 'resume' (from an out_dir) or a gpt2 variant (e.g. 'gpt2-xl')
 out_dir = 'out/ckpt.pt' # ignored if init_from is not 'resume'
 start = "\n" # or "<|endoftext|>" or etc. Can also specify a file, use as: "FILE:prompt.txt"
-num_samples = 10 # number of samples to draw
 max_new_tokens = 24 # number of tokens generated in each sample
 temperature = 0.4 # 1.0 = no change, < 1.0 = less random, > 1.0 = more random, in predictions
 top_k = 200 # retain only the top_k most likely tokens, clamp others to have 0 probability
@@ -64,7 +63,7 @@ if init_from == 'resume' and 'config' in checkpoint and 'dataset' in checkpoint[
 
 if load_meta:
     tok = Tokenizer(meta_path)
-    tok.ignore_on_decode('\n')
+    # tok.ignore_on_decode('\n')
     encode = lambda s: tok.encode(s)
     decode = lambda l: tok.decode(l)
 else:
@@ -75,7 +74,7 @@ else:
     decode = lambda l: enc.decode(l)
 
 while True:
-    start = input("Prompt: ")
+    start = input("\n-----\nPrompt: ")
     if not start:
         start = "\n"
     # encode the beginning of the prompt
@@ -89,6 +88,8 @@ while True:
     # run generation
     with torch.no_grad():
         with ctx:
-            y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
-            print(decode(y[0].tolist()))
-            print('\n')
+            for _ in range(max_new_tokens):
+                next, y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
+                print(decode(next[0].tolist()), end="", flush=True)
+                x = y
+

@@ -2,7 +2,11 @@
 
 python3 train.py data/<dataset>/train_config.py
 
-python3 sample.py --out_dir=<out-dataset> --device=mps
+python3 sample.py --out_dir=<out-dataset>/*.pt --device=mps
+
+## GPT-2
+
+python3 sample.py --init_from=gpt2-xl --max_new_tokens=500 --device=mps
 
 # nanoGPT
 
