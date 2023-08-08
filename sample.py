@@ -43,7 +43,7 @@ if init_from == 'resume':
         if k.startswith(unwanted_prefix):
             state_dict[k[len(unwanted_prefix):]] = state_dict.pop(k)
     model.load_state_dict(state_dict)
-    print(f"Best val loss: {checkpoint['best_val_loss']}, iter_num: {checkpoint['iter_num']}")
+    print(f"Best val loss: {checkpoint['best_val_loss']:.5f}, iter_num: {checkpoint['iter_num']}")
     print(f"Model config: {checkpoint['config']}")
 elif init_from.startswith('gpt2'):
     # init from a given GPT-2 model
