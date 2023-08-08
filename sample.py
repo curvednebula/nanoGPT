@@ -91,8 +91,8 @@ while True:
             for _ in range(max_new_tokens):
                 next, y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
                 next_token = decode(next[0].tolist())
-                print(next_token, end="", flush=True)
                 if next_token.endswith(stop_token):
                     break
+                print(next_token, end="", flush=True)
                 x = y
 
