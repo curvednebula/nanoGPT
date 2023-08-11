@@ -12,10 +12,10 @@ wandb_project = 'math'
 wandb_run_name = 'mini-gpt'
 
 # GPT model parameters
-block_size = 20 # attention window
+block_size = 24 # attention window
 n_layer = 6
 n_head = 12
-n_embd = n_head * 16
+n_embd = n_head * 32
 dropout = 0.2
 
 # Learning parameters

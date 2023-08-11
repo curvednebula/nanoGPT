@@ -17,21 +17,24 @@ from tokenizer import Tokenizer
 
 train_file_path = os.path.join(os.path.dirname(__file__), 'train.txt')
 with open(train_file_path, 'w') as f:
-    for i in range(0, 100, 1):
-        for j in range(0, 100, 1):
-            f.write(f"{i}+{j}={i+j}\n")
-    for i in range(100, 10000, 3):
-        for j in range(100, 10000, 7):
+    # for i in range(0, 101, 1):
+    #     for j in range(0, 101, 1):
+    #         f.write(f"{i}+{j}={i+j}\n")
+    for i in range(0, 1000, 7):
+        for j in range(0, 1000, 11):
             f.write(f"{i}+{j}={i+j}\n") 
 
 val_file_path = os.path.join(os.path.dirname(__file__), 'val.txt')
 with open(val_file_path, 'w') as f:
-    for i in range(200, 300, 1):
-        for j in range(700, 800, 1):
+    # for i in range(20, 30, 1):
+    #     for j in range(70, 80, 1):
+    #         f.write(f"{i}+{j}={i+j}\n")
+    for i in range(200, 300, 2):
+        for j in range(700, 800, 3):
             f.write(f"{i}+{j}={i+j}\n")
-    for i in range(2000, 2500, 1):
-        for j in range(7000, 7500, 1):
-            f.write(f"{i}+{j}={i+j}\n")
+    # for i in range(2000, 2500, 1):
+    #     for j in range(7000, 7500, 1):
+    #         f.write(f"{i}+{j}={i+j}\n")
 
 # download the dataset
 with open(train_file_path, 'r') as f:

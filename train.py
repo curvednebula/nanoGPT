@@ -34,6 +34,8 @@ from model import GPTConfig, GPT
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
 out_dir = 'out'
+input_checkpoint = 'ckpt.pt'
+out_checkpoit = input_checkpoint
 eval_interval = 2000
 log_interval = 1
 eval_iters = 200
@@ -148,9 +150,9 @@ if init_from == 'scratch':
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
 elif init_from == 'resume':
-    print(f"Resuming training from {out_dir}")
-    # resume training from a checkpoint.
-    ckpt_path = os.path.join(out_dir, 'ckpt.pt')
+    print(f"Resuming training from {out_dir}/{input_checkpoint}")
+    out_checkpoit = 'new-ckpt.pt'
+    ckpt_path = os.path.join(out_dir, input_checkpoint)
     checkpoint = torch.load(ckpt_path, map_location=device)
     checkpoint_model_args = checkpoint['model_args']
     # force these config attributes to be equal otherwise we can't even resume training
@@ -169,7 +171,8 @@ elif init_from == 'resume':
             state_dict[k[len(unwanted_prefix):]] = state_dict.pop(k)
     model.load_state_dict(state_dict)
     iter_num = checkpoint['iter_num']
-    best_val_loss = checkpoint['best_val_loss']
+    # TODO: we can train model on new data - so it can have worse performance than previous model
+    # best_val_loss = checkpoint['best_val_loss']
 elif init_from.startswith('gpt2'):
     print(f"Initializing from OpenAI GPT-2 weights: {init_from}")
     # initialize from OpenAI GPT-2 weights
@@ -275,8 +278,8 @@ while True:
                     'best_val_loss': best_val_loss,
                     'config': config,
                 }
-                print(f"saving checkpoint to {out_dir}")
-                torch.save(checkpoint, os.path.join(out_dir, 'ckpt.pt'))
+                print(f"saving checkpoint to {out_dir}/{out_checkpoit}")
+                torch.save(checkpoint, os.path.join(out_dir, out_checkpoit))
     if iter_num == 0 and eval_only:
         break
 
